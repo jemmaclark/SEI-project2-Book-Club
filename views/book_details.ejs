@@ -1,0 +1,20 @@
+<h2>Book Details</h2>
+
+<h3>Title: <%= books.title %></h3>
+<p>Author: <%= books.author %></p>
+<p>Genre: <%= books.genre %></p>
+<p>Published: <%= books.published_year %></p>
+
+<img src="<%= books.image_url %>" alt="<%= books.title %>">
+
+
+
+<% if (user.id) { %>
+    
+    <a href="/books/<%= books.id %>/edit">Edit Book</a>
+    
+    <form action="/books/<%= books.id %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button>Delete</button>
+    </form>
+<% } %>

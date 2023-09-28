@@ -11,7 +11,7 @@ router.post('/login', (req, res) => {
     console.log("login route accessed")
     sql = `SELECT * FROM users WHERE email = $1`
     values = [req.body.email]
-    console.log(req.body.email)
+    // console.log(req.body.email)
 
     db.query(sql, values, (err, dbRes) => {
         if (err) {
@@ -23,7 +23,7 @@ router.post('/login', (req, res) => {
             console.log("user not found")
             return res.render('login')
         }
-        console.log(dbRes.rows)
+        // console.log(dbRes.rows)
 
         const userInputPassword = req.body.password
         const hashedPasswordFromDb = dbRes.rows[0].password_digest

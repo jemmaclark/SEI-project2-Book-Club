@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
-const requestLogger = require('./middlewares/request_logger')
 const expressLayouts = require('express-ejs-layouts')
+const requestLogger = require('./middlewares/request_logger')
 const pg = require('pg')
 const reqBodyMethodOverride = require('./middlewares/req_body_method_override')
 const bcrypt = require('bcrypt')
@@ -24,12 +24,12 @@ app.use(session({
   })
 );
 
-app.use(setCurrentUser)
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }))
 app.use(reqBodyMethodOverride);
 app.use(requestLogger);
 app.use(expressLayouts);
+app.use(setCurrentUser)
 
 
 app.use('/users', userRoutes)

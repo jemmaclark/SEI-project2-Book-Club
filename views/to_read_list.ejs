@@ -1,0 +1,11 @@
+<h2>Your Want to Read List</h2>
+
+<ul>
+  <% yourReadBooks.forEach((book) => { %>
+    <li>
+      <img src="<%= book.image_url %>" alt="<%= book.title %>">
+      <h3><a href="/books/<%= book.want_to_read_id %>"><%= book.title %></a></h3>
+      <p>Author: <%= book.author %></p>
+    </li>
+  <% }); %>
+</ul>

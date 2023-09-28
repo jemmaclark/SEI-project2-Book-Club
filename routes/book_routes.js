@@ -35,7 +35,99 @@ router.get('/:id', (req, res) => {
         console.log('book details:', books)
 
         const userId = req.session.userId
-        res.render('book_details', { books, user: req.user })
+        console.log(req.session.user)
+        res.render('book_details', { books, userId: userId })
+    })
+})
+
+router.delete('/:id', (req, res) => {
+    const bookId = req.params.id
+    const sql = `DELETE FROM books WHERE id = $1;`
+
+    db.query(sql, [bookId], (err, dbRes) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect('/')
+        }
+    })
+})
+
+router.get('/:id/edit', (req, res) => {
+    const booksId = req.params.id;
+    db.query(`SELECT * FROM books WHERE id = $1;`, [booksId], (err, dbRes) => {
+        if (err) {
+        console.log(err)
+        } else {
+            const book = dbRes.rows[0];
+            res.render('edit_form', { book })
+        }
+    })
+})
+
+router.post('/:id', (req, res) => {
+    const booksId = req.params.id;
+    const { title, author, genre, published_year, image_url } = req.body
+    const sql = `UPDATE books SET title = $1, author = $2, genre = $3, published_year = $4, image_url = $5 WHERE id = $6;`
+    const values = [title, author, genre, published_year, image_url, booksId]
+
+    db.query(sql, values, (err, dbRes) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect(`/books/${booksId}`)
+        }
+    })
+})
+
+router.get('/:id/to-read', ensureLoggedIn, (req, res) => {
+    const bookId = req.params.id
+    res.render('to_read_list', { bookId })
+})
+
+router.post('/:id/to-read', ensureLoggedIn, (req, res) => {
+    const bookId = req.params.id
+    const userId = req.session.userId
+
+    const sql = `INSERT INTO want_to_read (user_id, book_id) VALUES ($1, $2);`
+
+    db.query(sql, [userId, bookId], (err, dbRes) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.render('to_read_list', { bookId })
+        }
+    })
+})
+
+router.get('/books/to-read', ensureLoggedIn, (req, res) => {
+    const userId = req.session.userId
+    const sql = `SELECT books.title, books.author, books.image_url, want_to_read.id AS want_to_read_id 
+    FROM books
+    JOIN want_to_read ON books.id = want_to_read.book_id
+    WHERE want_to_read.user_id = $1;`
+
+    db.query(sql, [userId], (err, dbRes) => {
+        if (err) {
+            console.log(err)
+        } else {
+            const yourReadBooks = dbRes.rows
+            res.render('to_read_list', { yourReadBooks })
+        }
+    })
+})
+
+router.post('/:id/to-read', ensureLoggedIn, (req, res) => {
+    const bookId = req.params.id
+    const userId = req.session.userId
+    const sql = `INSERT INTO want_to_read (user_id, book_id) VALUES ($1, $2);`
+
+    db.query(sql, [userId, bookId], (err, dbRes) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect('/books/to_read_list')
+        }
     })
 })
 

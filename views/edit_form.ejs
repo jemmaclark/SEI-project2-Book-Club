@@ -1,0 +1,18 @@
+<h2>Edit Book</h2>
+
+<form action="/books/<%= book.id %>" method="post">
+    <input type="hidden" name="_method" value="put">
+    <label for="">title</label>
+    <input name="title" type="text" value="<%= book.title %>">
+    <label for="">Author</label>
+    <input type="text" name="author" value="<%= book.author %>">
+    <label for="">Genre</label>
+    <input type="text" name="genre" value="<%= book.genre %>">
+    <label for="">Published Year</label>
+    <input type="number" name="published_year" value="<%= book.published_year %>">
+    <label for="">image</label>
+    <input name="image_url" type="text" value="<%= book.image_url %>">
+    <button>update</button>
+</form>
+
+<a href="/">Back to Home</a>

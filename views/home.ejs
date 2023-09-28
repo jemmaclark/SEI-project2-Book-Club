@@ -1,2 +1,18 @@
 <h2>Welcome to Your Personal Book Club</h2>
 <p>Discover and share your favourite books with other book lovers.</p>
+
+<section class="book-list">
+    <% for (let book of books) { %>
+        <div class="ui-card">
+            <h2>
+                <a href="/books/<%= book.id %>">
+                    <%= book.title %>
+                </a>
+            </h2>
+            <p>Author: <%= book.author %></p>
+            <p>Genre: <%= book.genre %></p>
+            <p>Published Year: <%= book.published_year %></p>
+            <img src="<%= book.image_url %>" alt="<%= book.title %> Cover Image">
+        </div>
+    <% } %>
+</section>

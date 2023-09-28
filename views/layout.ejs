@@ -11,8 +11,6 @@
         
         <% if (userId) { %>
             <%= user.email %>
-        <% } else { %>
-            User not found
         <% } %>
        
     
@@ -20,6 +18,7 @@
         <a href="/">Home</a>
 
         <% if (userId) { %>
+            <a href="/books">Add Book</a>
             <form action="/logout" method="post">
                 <input type="hidden" name="_method" value="delete">
                 <button>logout</button>
@@ -27,8 +26,9 @@
             <% } else { %>
                 <a href="/login">login</a>
             <% } %>
-            <a href="/users/signup">Sign Up
-            </a>
+            <% if (!user) { %>
+                <a href="/users/signup">Sign Up</a>
+            <% } %>
     </nav>
     <h1>Your Personal Book Club</h1>
 

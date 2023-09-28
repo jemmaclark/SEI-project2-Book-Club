@@ -4,34 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Club</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-
-
-        
-        <% if (userId) { %>
-            <%= user.email %>
-        <% } %>
-       
-    
     <nav>
-        <a href="/">Home</a>
-
         <% if (userId) { %>
-            <a href="/books/add">Add Book</a>
-            <form action="/logout" method="post">
-                <input type="hidden" name="_method" value="delete">
-                <button>logout</button>
-            </form>
+            <span class="welcome">Welcome, <%= user.email %></span>
+        <% } %>
+    
+        <ul>
+            <li><a href="/">Home</a></li>
+            <% if (userId) { %>
+                <li><a href="/books/add">Add Book</a></li>
             <% } else { %>
-                <a href="/login">login</a>
+                <li><a href="/login">Login</a></li>
             <% } %>
             <% if (!user) { %>
-                <a href="/users/signup">Sign Up</a>
+                <li><a href="/users/signup">Sign Up</a></li>
             <% } %>
+        </ul>
+    
+        <% if (userId) { %>
+            <div class="logout-button">
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <button>Logout</button>
+                </form>
+            </div>
+        <% } %>
     </nav>
-    <h1>Your Personal Book Club</h1>
+    <div class="content-container">
+        <h1>Your Personal Book Club</h1>
+    
+        <%- body %>
 
-    <%- body %>
+    </div>
 </body>
 </html>

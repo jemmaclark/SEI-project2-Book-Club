@@ -9,19 +9,21 @@
 
 <img src="<%= books.image_url %>" alt="<%= books.title %>">
 
-<% if (userId) { %>
-    <form action="/books/<%= books.id %>/to-read" method="post">
-        <button>Add to Your Want to Read List</button>
-    </form>
-<% } %>
+<div class="button-container">
+    <% if (userId) { %>
+        <form action="/books/<%= books.id %>/to-read" method="post">
+            <button>Add to Your Want to Read List</button>
+        </form>
+    <% } %>
 
-<% if (userId) { %>
+    <% if (userId) { %>
     
-    <a href="/books/<%= books.id %>/edit">Edit Book</a>
+        <a href="/books/<%= books.id %>/edit">Edit Book</a>
     
-    <form action="/books/<%= books.id %>" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <button>Delete</button>
-    </form>
-<% } %>
+        <form action="/books/<%= books.id %>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <button>Delete</button>
+        </form>
+    <% } %>
 
+</div>  

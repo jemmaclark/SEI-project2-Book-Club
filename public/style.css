@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #f8f8f8;
+    background-color: #bfd1ce;
     font-family: Arial, Helvetica, sans-serif;
     color: #333;
     
@@ -162,4 +162,15 @@ button:hover {
     max-width: 100%;
     height: auto;
     margin-top: 20px;
+}
+.button-container {
+    margin-top: 20px;
+}
+
+.button-container button,
+.button-container a {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }

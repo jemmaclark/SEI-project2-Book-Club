@@ -40,20 +40,28 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', ensureLoggedIn, (req, res) => {
     const bookId = req.params.id
-    const sql = `DELETE FROM books WHERE id = $1;`
-
-    db.query(sql, [bookId], (err, dbRes) => {
-        if (err) {
-            console.log(err)
+    const deleteWantToReadRecords = `DELETE FROM want_to_read WHERE book_id = $1;`
+    db.query (deleteWantToReadRecords, [bookId], (err1, dbRes1) => {
+        if (err1) {
+            console.log(err1)
         } else {
-            res.redirect('/')
+            const sql = `DELETE FROM books WHERE id = $1;`
+            db.query(sql, [bookId], (err2, dbRes2) => {
+                if (err2) {
+                    console.log(err2)
+                } else {
+                    res.redirect('/')
+                }
+            })
+            
         }
     })
+    
 })
 
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', ensureLoggedIn, (req, res) => {
     const booksId = req.params.id;
     db.query(`SELECT * FROM books WHERE id = $1;`, [booksId], (err, dbRes) => {
         if (err) {
@@ -65,7 +73,7 @@ router.get('/:id/edit', (req, res) => {
     })
 })
 
-router.post('/:id', (req, res) => {
+router.post('/:id', ensureLoggedIn, (req, res) => {
     const booksId = req.params.id;
     const { title, author, genre, published_year, image_url } = req.body
     const sql = `UPDATE books SET title = $1, author = $2, genre = $3, published_year = $4, image_url = $5 WHERE id = $6;`

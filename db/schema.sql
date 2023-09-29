@@ -16,8 +16,8 @@ CREATE TABLE books (
 
 CREATE TABLE want_to_read (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER,
-    book_id INTEGER,
+    user_id INT,
+    book_id INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (book_id) REFERENCES books(id)
 );

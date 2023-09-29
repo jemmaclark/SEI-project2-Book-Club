@@ -11,7 +11,7 @@
 
 <div class="button-container">
     <% if (userId) { %>
-        <form action="/books/<%= books.id %>/to-read" method="post">
+        <form action="/books/<%= books.id %>/to-read" method="get">
             <button>Add to Your Want to Read List</button>
         </form>
     <% } %>

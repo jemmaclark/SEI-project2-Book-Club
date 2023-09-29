@@ -1,6 +1,6 @@
 # SEI Project 2 - Book Club app
 
-[Book Club App] (https://bookclub-zdku.onrender.com)
+[Book Club Link](https://bookclub-zdku.onrender.com)
 
 ## About
 The Book Club App is a full-stack web application that allows users to discover, share and manage their favourite books. Users can create an account, add books to their library and in the future, connect with other book enthusiasts.
